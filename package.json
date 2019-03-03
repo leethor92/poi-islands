@@ -18,5 +18,12 @@
   "homepage": "https://github.com/leethor92/poi-islands#readme",
   "dependencies": {
     "hapi": "^18.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
   }
 }
