@@ -1,3 +1,3 @@
-const Controller = require('./controller.js');
+const pointsOfInterest = require('./app/controllers/poicontroller');
 
-module.exports = [{ method: 'GET', path: '/', config: Controller.index }];
+module.exports = [{ method: 'GET', path: '/', config: pointsOfInterest.index }];
