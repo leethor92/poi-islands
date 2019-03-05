@@ -13,11 +13,14 @@ async function init() {
 
   server.views({
     engines: {
-      hbs: require('handlebars')
+      hbs: require('handlebars'),
     },
     relativeTo: __dirname,
     path: './app/views',
-    isCached: false
+    layoutPath: './app/views/layouts',
+    partialsPath: './app/views/partials',
+    layout: true,
+    isCached: false,
   });
 
   server.route(require('./routes'));
