@@ -7,10 +7,19 @@ const server = Hapi.server({
   host: 'localhost'
 });
 
-
-
 async function init() {
   await server.register(require('inert'));
+  await server.register(require('vision'));
+
+  server.views({
+    engines: {
+      hbs: require('handlebars')
+    },
+    relativeTo: __dirname,
+    path: './app/views',
+    isCached: false
+  });
+
   server.route(require('./routes'));
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);
