@@ -12,6 +12,8 @@ module.exports = [
   { method: 'POST', path: '/signup', config: Accounts.signup },
 
   { method: 'GET', path: '/home', config: Dashboard.home },
+  { method: 'GET', path: '/report', config: Dashboard.report },
+  { method: 'POST', path: '/poi', config: Dashboard.addPoint },
   {
     method: 'GET', path: '/{param*}',
     handler: {
