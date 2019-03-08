@@ -8,15 +8,12 @@ const server = Hapi.server({
   host: 'localhost'
 });
 
-server.bind({
-  users: {},
-  points: [],
-});
 
 async function init() {
   await server.register(require('inert'));
   await server.register(require('vision'));
   await server.register(require('hapi-auth-cookie'));
+  require('./app/models/db');
 
   server.views({
     engines: {
