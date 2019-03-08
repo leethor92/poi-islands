@@ -10,6 +10,8 @@ module.exports = [
   { method: 'GET', path: '/logout', config: Accounts.logout },
   { method: 'POST', path: '/login', config: Accounts.login },
   { method: 'POST', path: '/signup', config: Accounts.signup },
+  { method: 'GET', path: '/settings', config: Accounts.showSettings },
+  { method: 'POST', path: '/settings', config: Accounts.updateSettings },
 
   { method: 'GET', path: '/home', config: Dashboard.home },
   { method: 'GET', path: '/report', config: Dashboard.report },
