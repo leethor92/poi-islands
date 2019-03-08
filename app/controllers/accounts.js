@@ -20,16 +20,25 @@ const Accounts = {
   signup: {
     auth: false,
     handler: async function(request, h) {
-      const payload = request.payload;
-      const newUser = new User({
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        email: payload.email,
-        password: payload.password
-      });
-      const user = await newUser.save();
-      request.cookieAuth.set({ id: user.id });
-      return h.redirect('/home');
+      try {
+        const payload = request.payload;
+        let user = await User.findByEmail(payload.email);
+        if (user) {
+          const message = 'Email address is already registered';
+          throw new Boom(message);
+        }
+        const newUser = new User({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email,
+          password: payload.password
+        });
+        user = await newUser.save();
+        request.cookieAuth.set({ id: user.id });
+        return h.redirect('/home');
+      } catch (err) {
+        return h.view('signup', { errors: [{ message: err.message }] });
+      }
     }
   },
 
@@ -66,20 +75,31 @@ const Accounts = {
     }
   },
   showSettings: {
-    handler: function(request, h) {
-      var memberEmail = request.auth.credentials.id;
-      const userDetails = this.users[memberEmail];
-      return h.view('settings', { title: 'Account Settings', user: userDetails });
+    handler: async function(request, h) {
+    try{
+      const id = request.auth.credentials.id;
+      const user = await User.findById(id);
+      return h.view('settings', { title: 'Account Settings', user: user });
+    } catch (err) {
+      return h.view('login', { errors: [{message: err.message }]});
     }
+   }
   },
 
   updateSettings: {
-    handler: function(request, h) {
-      const user = request.payload;
-      this.users[user.email] = user;
+    handler: async function(request, h) {
+      const userEdit = request.payload;
+      const id = request.auth.credentials.id;
+      const user = await User.findById(id);
+      user.firstName = userEdit.firstName;
+      user.lastName = userEdit.lastName;
+      user.email = userEdit.email;
+      user.password = userEdit.password;
+      await user.save();
       return h.redirect('/settings');
     }
   },
+
 };
 
 module.exports = Accounts;
