@@ -14,6 +14,8 @@ const Dashboard = {
   addPoint: {
     handler: function(request, h) {
       const data = request.payload;
+      var memberEmail = request.auth.credentials.id;
+      data.member = this.users[memberEmail];
       this.points.push(data);
       return h.redirect('/report');
     }
