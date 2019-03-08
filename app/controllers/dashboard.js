@@ -17,7 +17,8 @@ const Dashboard = {
       this.points.push(data);
       return h.redirect('/report');
     }
-  }
+  },
 };
+
 
 module.exports = Dashboard;
