@@ -7,7 +7,11 @@ const poiSchema = new Schema({
   name: String,
   details: String,
   firstName: String,
-  lastName: String
+  lastName: String,
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
+  }
 });
 
 module.exports = Mongoose.model('PointOfInterest', poiSchema);

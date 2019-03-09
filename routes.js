@@ -16,6 +16,7 @@ module.exports = [
   { method: 'GET', path: '/home', config: Dashboard.home },
   { method: 'GET', path: '/report', config: Dashboard.report },
   { method: 'POST', path: '/poi', config: Dashboard.addPOI },
+  { method: 'GET', path: '/poi/deletePOI{id}', config: Dashboard.deletePOI},
   {
     method: 'GET', path: '/{param*}',
     handler: {

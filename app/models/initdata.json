@@ -1,0 +1,47 @@
+{
+  "users": {
+    "_model": "User",
+    "homer": {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret"
+    },
+    "marge": {
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret"
+    },
+    "bart": {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret"
+    }
+  },
+    "categories": {
+      "_model": "Category",
+      "one": {
+        "name": "East"
+      }
+    },
+    "points": {
+      "_model": "PointOfInterest",
+      "one": {
+        "name": "Skellig Island",
+        "details": "The Skellig Islands are 2 uninhabited, rocky islets off the southwestern coast of Ireland. Skellig Michael is known for its well-preserved early Christian monastery. The site, reached by steep steps, includes stone beehive-shaped huts, oratories and crosses. Thousands of puffins breed on Skellig Michael during the warmer months. To the northeast, the island of Little Skellig is home to a large colony of gannets.",
+        "member": "->users.homer"
+      },
+      "two": {
+        "name": "Aran Islands",
+        "details": "The Aran Islands are 3 rocky isles guarding the mouth of Galway Bay, in western Ireland. They’re known for their ancient sites.",
+        "member": "->users.bart"
+      },
+      "three": {
+        "name": "Tory Island",
+        "details": "Tory Island, or simply Tory, is an island 14.5 kilometres off the north-west coast of County Donegal in Ulster, Ireland, and is the most remote inhabited island of Ireland.",
+        "member": "->users.bart"
+      }
+    }
+}
