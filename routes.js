@@ -1,7 +1,8 @@
 'use strict';
 
-const Dashboard = require('./app/controllers/dashboard')
-const Accounts = require('./app/controllers/accounts')
+const Dashboard = require('./app/controllers/dashboard');
+const Accounts = require('./app/controllers/accounts');
+
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },
@@ -17,8 +18,8 @@ module.exports = [
   { method: 'GET', path: '/report', config: Dashboard.report },
   { method: 'POST', path: '/poi', config: Dashboard.addPOI },
   { method: 'GET', path: '/poi/deletePOI{id}', config: Dashboard.deletePOI},
-  {
-    method: 'GET', path: '/{param*}',
+
+  { method: 'GET', path: '/{param*}',
     handler: {
       directory: {
         path: './public'

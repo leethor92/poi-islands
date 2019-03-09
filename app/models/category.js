@@ -3,8 +3,14 @@
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 
-const candidateSchema = Schema({
-  name: String
+const categorySchema = Schema({
+  name: String,
+  points: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'PointOfInterest'
+    }
+  ]
 });
 
-module.exports = Mongoose.model('Category', candidateSchema);
+module.exports = Mongoose.model('Category', categorySchema);

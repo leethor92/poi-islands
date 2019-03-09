@@ -9,7 +9,7 @@
           <tr>
             <th>Name</th>
             <th>Details</th>
-            <th>Member</th>
+            <th>Region</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -18,7 +18,7 @@
             <tr>
               <td> {{name}} </td>
               <td> {{details}} </td>
-              <td> {{firstName}} {{lastName}}</td>
+              <td> {{category.name}} </td>
               <td> <a href="/poi/deletePOI{{_id}}"> <i class="trash red alternate outline icon"></i> </a> </td>
             </tr>
           {{/each}}

@@ -2,11 +2,14 @@
 
 const PointOfInterest = require('../models/POI');
 const User = require('../models/user');
+const Category = require('../models/category');
 
 const Dashboard = {
   home: {
-    handler: function(request, h) {
-      return h.view('home', { title: 'Explore the Irish isles' });
+    handler: async function(request, h) {
+      const pointsOfInterest = await PointOfInterest.find().populate('category');
+      const categories = await Category.find().populate('points');
+      return h.view('home', { title: 'Explore the Irish isles', points: pointsOfInterest, categories: categories });
     }
   },
 
@@ -39,7 +42,7 @@ const Dashboard = {
 
   report: {
     handler: async function(request, h) {
-      const pointsOfInterest = await PointOfInterest.find().populate('member');
+      const pointsOfInterest = await PointOfInterest.find().populate('category');
       return h.view('report', {
         title: 'Places to see',
         points: pointsOfInterest
