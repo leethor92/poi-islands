@@ -35,8 +35,8 @@ const Dashboard = {
 
   deletePOI:{
     handler: async function(request, h) {
-      PointOfInterest.deleteByID(request.params.id)
-      return h.view('/report');
+      await PointOfInterest.findById(request.params.id)
+      return h.redirect('/report');
     }
   },
 

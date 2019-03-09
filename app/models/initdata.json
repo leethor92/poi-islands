@@ -20,6 +20,15 @@
       "password": "secret"
     }
   },
+  "admins": {
+    "_model": "Admin",
+    "bart": {
+      "firstName": "Lisa",
+      "lastName": "Simpson",
+      "email": "lisa@simpson.com",
+      "password": "secret"
+    }
+  },
     "categories": {
       "_model": "Category",
       "one": {

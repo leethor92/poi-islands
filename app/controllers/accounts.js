@@ -2,6 +2,9 @@
 
 const User = require('../models/user');
 const Joi = require('joi');
+const Category = require('../models/category');
+const Admin = require('../models/admin');
+
 
 const Accounts = {
   index: {
@@ -98,16 +101,23 @@ const Accounts = {
     handler: async function(request, h) {
       const { email, password } = request.payload;
       try {
-        let user = await User.findByEmail(email);
-        if (!user) {
+        let user = await User.findByEmail(email)
+        let admin = await Admin.findByEmail(email);
+        if (user) {
+          user.comparePassword(password);
+          request.cookieAuth.set({ id: user.id });
+          return h.redirect('/home');
+        }
+        else if (admin) {
+          admin.comparePassword(password);
+          request.cookieAuth.set({ id: admin.id });
+          return h.redirect('/adminhome');
+        }
+        else {
           const message = 'Email address is not registered';
           throw new Boom(message);
-        }
-        user.comparePassword(password);
-        request.cookieAuth.set({ id: user.id });
-        return h.redirect('/home');
-      } catch (err) {
-        return h.view('login', { errors: [{ message: err.message }] });
+        } } catch (e) {
+        return h.view('login', { errors: [{ message: e.message}]});
       }
     }
   },
@@ -120,14 +130,20 @@ const Accounts = {
   },
   showSettings: {
     handler: async function(request, h) {
-    try{
-      const id = request.auth.credentials.id;
-      const user = await User.findById(id);
-      return h.view('settings', { title: 'Account Settings', user: user });
-    } catch (err) {
-      return h.view('login', { errors: [{message: err.message }]});
+      try {
+        const id = request.auth.credentials.id;
+        const user = await User.findById(id);
+        const categories = await Category.find();
+        return h.view('settings',
+          {
+            title: 'IoI Settings',
+            user: user,
+            categories: categories
+          });
+      } catch (e) {
+        return h.view('login', { errors: [{ message: e.message }] });
+      }
     }
-   }
   },
 
   updateSettings: {
