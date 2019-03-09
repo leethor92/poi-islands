@@ -9,6 +9,27 @@ const Dashboard = {
       return h.view('home', { title: 'Explore the Irish isles' });
     }
   },
+
+  addPOI: {
+    handler: async function(request, h) {
+      try {
+        const id = request.auth.credentials.id;
+        const user = await User.findById(id);
+        const data = request.payload;
+        const newPoint = new PointOfInterest({
+          name: data.name,
+          details: data.details,
+          firstName: user.firstName,
+          lastName: user.lastName
+        });
+        await newPoint.save();
+        return h.redirect('/report');
+      } catch (err) {
+        return h.view('main', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+
   report: {
     handler: async function(request, h) {
       const pointsOfInterest = await PointOfInterest.find().populate('member');
@@ -18,24 +39,7 @@ const Dashboard = {
       });
     }
   },
-  addPOI: {
-    handler: async function(request, h) {
-     try {
-      const id = request.auth.credentials.id;
-      const user = await User.findById(id);
-      const data = request.payload;
-      const newPoint = new PointOfInterest({
-        name: data.name,
-        details: data.details,
-        member: user_id
-      });
-      await newPoint.save();
-      return h.redirect('/report');
-      } catch (err) {
-       return h.view('main', { errors: [{ message: err.message }] });
-     }
-    }
-  },
+
   showSettings: {
     handler: async function(request, h) {
       try {
@@ -65,6 +69,7 @@ const Dashboard = {
      }
     }
   }
+
 };
 
 
