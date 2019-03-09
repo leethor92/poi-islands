@@ -78,7 +78,7 @@ const Dashboard = {
        return h.view('main', { errors: [{ message: err.message }] });
      }
     }
-  }
+  },
 
 };
 
