@@ -20,8 +20,7 @@ const Dashboard = {
         const newPoint = new PointOfInterest({
           name: data.name,
           details: data.details,
-          firstName: user.firstName,
-          lastName: user.lastName
+          member: user._id
         });
         await newPoint.save();
         return h.redirect('/report');
