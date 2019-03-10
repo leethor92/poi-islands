@@ -2,6 +2,7 @@
 
 const PointOfInterest = require('../models/POI');
 const User = require('../models/user');
+const Joi = require('joi');
 
 const Dashboard = {
   home: {
@@ -26,6 +27,43 @@ const Dashboard = {
         return h.redirect('/report');
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+
+  pointSettings: {
+    handler: async function(request, h) {
+      try {
+        const point = await PointOfInterest.findById(request.params.id);
+        return h.view('updatepoi', { title: 'Update POI', point: point});
+      } catch (err) {
+        return h.view('main', { errors:[{ message: err.message}]});
+      }
+    }
+  },
+  updatePoint: {
+    validate: {
+      payload: {
+        name: Joi.string().required(),
+        description: Joi.string().required()
+      },
+      options: {
+        abortEarly: false
+      },
+      failAction: function (request, h, error) {
+        return h.view('updatepoi', { title: 'poi update error', errors: error.details}).takeover().code(400);
+      }
+    },
+    handler: async function(request, h) {
+      try {
+        const pointUpdate = request.payload;
+        const point = await PointOfInterest.findById(request.params.id);
+        point.name = pointUpdate.name;
+        point.details = pointUpdate.details;
+        await point.save();
+        return h.view('poi', { title: 'Explore the Irish isles', point: point });
+      } catch (err) {
+        return h.view('main', { errors: [{ message: err.message}]});
       }
     }
   },

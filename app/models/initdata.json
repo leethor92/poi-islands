@@ -21,7 +21,8 @@
     "_model": "PointOfInterest",
     "one": {
       "name": "Tory Island",
-      "description": "Tory Island, or simply Tory, is an island 14.5 kilometres off the north-west coast of County Donegal in Ulster, Ireland, and is the most remote inhabited island of Ireland."
+      "details": "Tory Island, or simply Tory, is an island 14.5 kilometres off the north-west coast of County Donegal in Ulster, Ireland, and is the most remote inhabited island of Ireland.",
+      "member": "->users.homer"
     }
   }
 }
