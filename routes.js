@@ -2,6 +2,7 @@
 
 const Dashboard = require('./app/controllers/dashboard')
 const Accounts = require('./app/controllers/accounts')
+const Admin = require('./app/controllers/admin-dashboard')
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },
@@ -12,6 +13,9 @@ module.exports = [
   { method: 'POST', path: '/signup', config: Accounts.signup },
   { method: 'GET', path: '/settings', config: Accounts.showSettings },
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
+
+  { method: 'GET', path: '/adminhome', config: Admin.home},
+  { method: 'GET', path: '/adminhome/deleteuser/{id}', config: Admin.deleteUser},
 
   { method: 'GET', path: '/home', config: Dashboard.home },
   { method: 'GET', path: '/report', config: Dashboard.report },
